@@ -1,0 +1,35 @@
+﻿<h1>Hello from MyView</h1>
+<h2>Heading</h2>
+
+@* block of code *@
+@{
+    int x = 10;
+    int y = x + 20;
+}
+
+inline
+<div>@(y+10)</div>
+
+@if (x<y)
+{
+    <h2>x=@x is greater than y=@y</h2>
+}
+else
+{
+    <h2>y is greater than x</h2>
+}
+
+@for (int i = 0; i < 5; i++)
+{
+    <li>@i</li>
+}
+
+<style>
+    h2 {
+        color: red;background-color:yellow
+    }
+</style>
+
+<script>
+    console.log("hello");
+</script>
