@@ -1,0 +1,14 @@
+﻿@model EmpCardVM
+@{
+    ViewData["Title"] = "EmpCard";
+}
+
+<h1>EmpCard</h1>
+
+<div class="card">
+    <div class="card-header">@Model.Name</div>
+    <div class="card-body">@Model.Address
+    <img src="~/Images/@Model.Img" width="150"/>
+    </div>
+    
+</div>
