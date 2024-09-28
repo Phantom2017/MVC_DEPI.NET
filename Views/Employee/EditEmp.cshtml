@@ -1,0 +1,43 @@
+﻿@model Employee
+@{
+    ViewData["Title"] = "EditEmp";
+}
+
+<h1>EditEmp</h1>
+<form method="post">
+    <div class="mb-3 mt-3">
+        <label for="deptName" class="form-label">Name:</label>
+        <input type="text" class="form-control" id="deptName" placeholder="Enter name" name="Name" value="@Model.Name">
+    </div>
+    <div class="mb-3 mt-3">
+        <label for="deptName" class="form-label">Name:</label>
+        <input type="text" class="form-control" id="deptName" placeholder="Enter name" name="Address" value="@Model.Address">
+    </div>
+    <div class="mb-3">
+        <label for="pwd" class="form-label">Password:</label>
+        <input type="number" class="form-control" id="pwd" placeholder="Enter magr name" name="Salary" value="@Model.Salary">
+    </div>
+    <div class="mb-3 mt-3">
+        <label for="deptName" class="form-label">Name:</label>
+        <input type="text" class="form-control" id="deptName" placeholder="Enter name" name="Img" value="@Model.Img">
+    </div>
+    <div class="mb-3 mt-3">
+        <label for="deptName" class="form-label">Department:</label>
+        <select class="form-select" name="deptId">
+            @foreach (var dept in ViewBag.depts)
+            {
+                if (dept.DeptID == Model.deptId)
+                {
+                    <option value="@dept.DeptID" selected>@dept.Name</option>
+                }
+                else
+                {
+                    <option value="@dept.DeptID">@dept.Name</option>
+                }                
+            }
+        </select>
+    </div>
+    <input type="hidden" name="Id" value="@Model.Id" />
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+

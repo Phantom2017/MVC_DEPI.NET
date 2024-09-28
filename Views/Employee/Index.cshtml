@@ -13,6 +13,7 @@
         <th>Address</th>
         <th>Salary</th>
         <th>Image</th>
+        <th></th>
     </tr>
     @foreach (var emp in Model)
     {
@@ -22,6 +23,10 @@
             <td>@emp.Address</td>
             <td>@emp.Salary</td>
             <td><img src="~/Images/@emp.Img" width="100"/></td>
+            <td>
+                <a href="/Employee/EditEmp/@emp.Id" class="btn btn-primary">Edit</a>
+                <a href="/Employee/DeleteEmp/@emp.Id" class="btn btn-danger">Delete</a>
+            </td>
         </tr>
     }
 </table>

@@ -21,6 +21,7 @@ namespace MVC_Day1
 
             app.UseRouting();
 
+            //app.UseAuthentication();
             app.UseAuthorization();
 
             app.MapControllerRoute(
@@ -28,6 +29,11 @@ namespace MVC_Day1
                 pattern: "{controller=Home}/{action=Index}/{id?}");
 
             app.Run();
+
+            //Types of middleware:
+            //(1) write ---> call next  (use)
+            //(2) write --->terminate  (run)
+            //(3) map
         }
     }
 }

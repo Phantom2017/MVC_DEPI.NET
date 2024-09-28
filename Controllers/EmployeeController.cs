@@ -35,5 +35,66 @@ namespace MVC_Day1.Controllers
 
             return View(vm);
         }
+
+        public IActionResult SaveData(int id,Employee employee)
+        {
+            //get ---> url
+            //post ---> request body
+
+            //Model Binding
+            //Request.Form
+            //Request.RouteValues
+            //Request.QueryString
+            //Default
+
+            //Dict/List  --> dict[ahmed]=123&dict[adel]=345
+
+            //Complex object
+            //Employee
+            return View();
+        }
+
+        public IActionResult EditEmp(int id) 
+        {
+            var emp = context.Employees.Find(id);
+            ViewData["depts"]=context.Departments.ToList();
+            return View(emp);
+        }
+
+        [HttpPost]
+        public IActionResult EditEmp(Employee newEmp)
+        {
+            var oldEmp = context.Employees.Find(newEmp.Id);
+            if (newEmp.Name!=null)
+            {
+                oldEmp.Name = newEmp.Name;
+                oldEmp.Address = newEmp.Address;
+                oldEmp.Img = newEmp.Img;
+                oldEmp.Salary = newEmp.Salary;
+                oldEmp.deptId = newEmp.deptId;
+
+                context.SaveChanges();
+                return RedirectToAction("Index"); 
+            }
+            else
+            {
+                return View(newEmp);
+            }
+        }
+
+        public IActionResult DeleteEmp(int id)
+        {
+            var emp = context.Employees.Find(id);
+            return View(emp);
+        }
+
+        [HttpPost]
+        public IActionResult DeleteEmp(Employee emp)
+        {
+            var delEmp = context.Employees.Find(emp.Id);
+            context.Remove(delEmp);
+            context.SaveChanges();
+            return RedirectToAction("Index");
+        }
     }
 }
