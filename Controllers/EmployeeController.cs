@@ -65,7 +65,7 @@ namespace MVC_Day1.Controllers
         public IActionResult EditEmp(Employee newEmp)
         {
             var oldEmp = context.Employees.Find(newEmp.Id);
-            if (newEmp.Name!=null)
+            if (ModelState.IsValid)
             {
                 oldEmp.Name = newEmp.Name;
                 oldEmp.Address = newEmp.Address;
@@ -78,6 +78,7 @@ namespace MVC_Day1.Controllers
             }
             else
             {
+                ViewData["depts"] = context.Departments.ToList();
                 return View(newEmp);
             }
         }
@@ -95,6 +96,14 @@ namespace MVC_Day1.Controllers
             context.Remove(delEmp);
             context.SaveChanges();
             return RedirectToAction("Index");
+        }
+
+
+        public IActionResult EmpPartial(int id)
+        {
+            var emp=context.Employees.Find(id);
+
+            return View("_EmpPartial",emp);
         }
     }
 }

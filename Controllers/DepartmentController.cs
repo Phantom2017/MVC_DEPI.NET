@@ -32,5 +32,19 @@ namespace MVC_Day1.Controllers
                 return View(dept);
             
         }
+
+        public IActionResult ViewEmps()
+        {
+            var depts = context.Departments.ToList();
+            ViewData["depts"] = depts;
+            return View();
+        }
+
+        public IActionResult getEmps(int id)
+        {
+            var emps=context.Employees.Where(e=>e.deptId==id).ToList();
+
+            return PartialView(emps);
+        }
     }
 }

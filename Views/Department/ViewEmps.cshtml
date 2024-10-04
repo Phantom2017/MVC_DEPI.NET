@@ -1,0 +1,31 @@
+﻿
+@{
+    ViewData["Title"] = "ViewEmps";
+}
+
+<h1>View Employess</h1>
+<label for="dept">Choose department</label>
+<select onchange="deptSelected()" id="s1">
+    @foreach(var dept in ViewBag.depts)
+    {
+        <option value="@dept.DeptID">@dept.Name</option>
+    }
+</select>
+
+<div id="d1">
+
+</div>
+
+<script>
+    function deptSelected() {
+       // var d = $("#s1").val();
+        var d = document.getElementById("s1").value;
+        console.log(d);
+
+        $.ajax({
+            url: "/Department/getEmps", data: { id: d }, success: function (result) {
+                $("#d1").html(result)
+            }
+        })
+    }
+</script>

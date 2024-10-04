@@ -39,7 +39,7 @@ namespace MVC_Day1.Migrations
 
                     b.HasKey("DeptID");
 
-                    b.ToTable("Departments");
+                    b.ToTable("Departments", (string)null);
 
                     b.HasData(
                         new
@@ -92,7 +92,7 @@ namespace MVC_Day1.Migrations
 
                     b.HasIndex("deptId");
 
-                    b.ToTable("Employees");
+                    b.ToTable("Employees", (string)null);
 
                     b.HasData(
                         new

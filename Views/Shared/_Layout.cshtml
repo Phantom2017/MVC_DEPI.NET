@@ -25,6 +25,9 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Employee" asp-action="Index">Employees</a>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -37,7 +40,9 @@
     </div>
 
     <footer class="border-top footer text-muted">
+        @RenderSection("anything", required: false)
         <div class="container">
+            
             &copy; 2024 - MVC_Day1 - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
     </footer>

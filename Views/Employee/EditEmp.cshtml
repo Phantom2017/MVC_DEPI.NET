@@ -1,21 +1,30 @@
 ﻿@model Employee
 @{
-    ViewData["Title"] = "EditEmp";
+    ViewData["Title"] = "EditEmp";   
 }
 
 <h1>EditEmp</h1>
 <form method="post">
     <div class="mb-3 mt-3">
+       @*  @Html.TextBoxFor(m=>m.Name)
+        @Html.EditorFor(m=>m.Salary)
+        @Html.ActionLink("Go to index","Index") *@
+        <a asp-action="EmpCard" asp-controller="Employee" asp-route-id="3" class="btn btn-success">Go to Index</a>
+        
         <label for="deptName" class="form-label">Name:</label>
-        <input type="text" class="form-control" id="deptName" placeholder="Enter name" name="Name" value="@Model.Name">
+        @* <input type="text" class="form-control" id="deptName" placeholder="Enter name" name="Name" value="@Model.Name"> *@
+        <input asp-for="Name" class="form-control"/>
+        <span asp-validation-for="Name" class="text-danger"></span>
     </div>
     <div class="mb-3 mt-3">
         <label for="deptName" class="form-label">Name:</label>
         <input type="text" class="form-control" id="deptName" placeholder="Enter name" name="Address" value="@Model.Address">
     </div>
     <div class="mb-3">
-        <label for="pwd" class="form-label">Password:</label>
-        <input type="number" class="form-control" id="pwd" placeholder="Enter magr name" name="Salary" value="@Model.Salary">
+        <label asp-for="Salary" class="form-label">Password:</label>
+       @*  <input type="number" class="form-control" id="pwd" placeholder="Enter magr name" name="Salary" value="@Model.Salary"> *@
+        <input asp-for="Salary" class="form-control" />
+        <span asp-validation-for="Salary" class="text-danger"></span>
     </div>
     <div class="mb-3 mt-3">
         <label for="deptName" class="form-label">Name:</label>
@@ -40,4 +49,7 @@
     <input type="hidden" name="Id" value="@Model.Id" />
     <button type="submit" class="btn btn-primary">Submit</button>
 </form>
-
+@section Scripts{
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+}
