@@ -1,8 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using MVC_Day1.Models;
 
 namespace MVC_Day1.Controllers
 {
+    //[Authorize]
     public class DepartmentController : Controller
     {
         DataContext context=new DataContext();
@@ -13,6 +15,8 @@ namespace MVC_Day1.Controllers
         }
 
         //Display empty form
+        //[Authorize]
+        [MyErrorFilter]
         public IActionResult NewDept()
         {
             return View(new Department());        
@@ -22,7 +26,7 @@ namespace MVC_Day1.Controllers
         [HttpPost]
         public IActionResult NewDept(Department dept)
         {
-            if (dept.Name!=null)
+            if (ModelState.IsValid)
             {
                 context.Departments.Add(dept);
                 context.SaveChanges();
@@ -45,6 +49,11 @@ namespace MVC_Day1.Controllers
             var emps=context.Employees.Where(e=>e.deptId==id).ToList();
 
             return PartialView(emps);
+        }
+
+        public JsonResult MaxFive(string ManagerName)
+        {
+            return Json(ManagerName.Length <= 5);
         }
     }
 }

@@ -10,6 +10,11 @@ namespace MVC_Day1
             // Add services to the container.
             builder.Services.AddControllersWithViews();
 
+            builder.Services.AddSession(t =>
+            {
+                t.IdleTimeout= TimeSpan.FromDays(1);
+            });
+
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
@@ -23,6 +28,8 @@ namespace MVC_Day1
 
             //app.UseAuthentication();
             app.UseAuthorization();
+
+            app.UseSession();
 
             app.MapControllerRoute(
                 name: "default",
