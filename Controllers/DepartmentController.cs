@@ -15,6 +15,7 @@ namespace MVC_Day1.Controllers
         {
             this.memoryCache = memoryCache;
         }
+        [Authorize]
         public IActionResult Index()
         {
             string cachKey = "DeptsCopy";
@@ -36,8 +37,11 @@ namespace MVC_Day1.Controllers
         //Display empty form
         //[Authorize]
         [MyErrorFilter]
+        [Authorize(Roles ="Admin,Moderator")]
         public IActionResult NewDept()
         {
+            //var claim= User.Claims.Where(c => c.Type == "age").FirstOrDefault();
+            //claim.Value
             return View(new Department());        
         }
 

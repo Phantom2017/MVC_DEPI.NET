@@ -1,11 +1,18 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using MVC_Day1.ViewModels;
 
 namespace MVC_Day1.Models
 {
     public class DataContext:IdentityDbContext<AppUser>//DbContext
     {
         public DataContext()
+        {
+            
+        }
+
+        //ctor for addDbContext service
+        public DataContext(DbContextOptions options):base(options) 
         {
             
         }
@@ -32,7 +39,7 @@ namespace MVC_Day1.Models
         }
 
         public DbSet<Employee> Employees { get; set; }
-        public DbSet<Department> Departments { get; set; }
+        public DbSet<Department> Departments { get; set; }        
 
     }
 }

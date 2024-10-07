@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using MVC_Day1.Models;
 
 namespace MVC_Day1
@@ -14,6 +15,11 @@ namespace MVC_Day1
             builder.Services.AddControllersWithViews();
             builder.Services.AddResponseCaching();
             builder.Services.AddMemoryCache();
+
+            builder.Services.AddDbContext<DataContext>(options =>
+            {
+                options.UseSqlServer(builder.Configuration.GetConnectionString("CS"));
+            });
 
             builder.Services.AddIdentity<AppUser, IdentityRole>(op =>
             {
@@ -54,7 +60,24 @@ namespace MVC_Day1
             //    pattern: "AdminSite/{action}/{name:alpha}/{age:int}"
             //    );
 
-           
+            //Add Roles to DB
+            var scope=app.Services.CreateScope();
+            var roleMgr= scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+
+            if (roleMgr.Roles.Count()==0)
+            {
+                var roles = new List<IdentityRole>
+                {
+                    new IdentityRole("Admin"),
+                    new IdentityRole("Moderator"),
+                    new IdentityRole("User")
+                };
+
+                foreach (var role in roles)
+                {
+                    roleMgr.CreateAsync(role).Wait();
+                }
+            }
 
             app.Run();
 
