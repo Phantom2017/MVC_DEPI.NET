@@ -17,6 +17,9 @@ namespace MVC_Day1.Models
         [ForeignKey("Department")]
         public int deptId { get; set; }
         public Department? Department { get; set; }
+        [ForeignKey("AppUser")]
+        public string UserId { get; set; } = "ABC";
+        public AppUser AppUser { get; set; }
         //[DataType(DataType.Password)]
         //[CreditCard]
         //[EmailAddress]

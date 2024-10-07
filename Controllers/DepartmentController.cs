@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Caching.Memory;
 using MVC_Day1.Models;
 
 namespace MVC_Day1.Controllers
@@ -8,9 +9,27 @@ namespace MVC_Day1.Controllers
     public class DepartmentController : Controller
     {
         DataContext context=new DataContext();
+        private readonly IMemoryCache memoryCache;
+
+        public DepartmentController(IMemoryCache memoryCache)  //Dependency Injection
+        {
+            this.memoryCache = memoryCache;
+        }
         public IActionResult Index()
         {
-            var depts=context.Departments.ToList();
+            string cachKey = "DeptsCopy";
+
+            if (!memoryCache.TryGetValue(cachKey,out List<Department> depts))
+            {
+                depts=context.Departments.ToList();
+
+                var options = new MemoryCacheEntryOptions();
+                options.SlidingExpiration = TimeSpan.FromMinutes(5); ;
+                options.AbsoluteExpiration = DateTimeOffset.Now.AddHours(1);
+
+                memoryCache.Set(cachKey, depts,options);
+            }
+            
             return View(depts);
         }
 
@@ -44,6 +63,7 @@ namespace MVC_Day1.Controllers
             return View();
         }
 
+        [ResponseCache(Duration =60,VaryByQueryKeys =["id"],Location = ResponseCacheLocation.Any)]
         public IActionResult getEmps(int id)
         {
             var emps=context.Employees.Where(e=>e.deptId==id).ToList();

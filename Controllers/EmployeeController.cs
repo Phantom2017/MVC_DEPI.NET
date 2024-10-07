@@ -62,6 +62,7 @@ namespace MVC_Day1.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult EditEmp(Employee newEmp)
         {
             var oldEmp = context.Employees.Find(newEmp.Id);

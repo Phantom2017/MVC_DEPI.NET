@@ -1,3 +1,6 @@
+using Microsoft.AspNetCore.Identity;
+using MVC_Day1.Models;
+
 namespace MVC_Day1
 {
     public class Program
@@ -9,6 +12,15 @@ namespace MVC_Day1
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+            builder.Services.AddResponseCaching();
+            builder.Services.AddMemoryCache();
+
+            builder.Services.AddIdentity<AppUser, IdentityRole>(op =>
+            {
+                op.Password.RequireNonAlphanumeric=true;
+                op.Password.RequiredLength = 8;                
+            }).AddEntityFrameworkStores<DataContext>()
+            .AddDefaultTokenProviders();
 
             builder.Services.AddSession(t =>
             {
@@ -16,6 +28,8 @@ namespace MVC_Day1
             });
 
             var app = builder.Build();
+
+            app.UseResponseCaching();
 
             // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())
@@ -32,8 +46,15 @@ namespace MVC_Day1
             app.UseSession();
 
             app.MapControllerRoute(
-                name: "default",
-                pattern: "{controller=Home}/{action=Index}/{id?}");
+               name: "default",
+               pattern: "{controller=Home}/{action=Index}/{id?}");
+
+            //app.MapControllerRoute(
+            //    name: "FourSegment",
+            //    pattern: "AdminSite/{action}/{name:alpha}/{age:int}"
+            //    );
+
+           
 
             app.Run();
 
